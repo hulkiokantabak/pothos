@@ -1,0 +1,269 @@
+/* POTHOS — herbarium at night.
+ * Bans in force (ADR-012): no fog, glow, halos, particles, bokeh, blur, gradient scenery.
+ * Faintness is stroke weight and sparsity, never sub-threshold color.
+ * The genome hue is the only saturated color that ever appears, and only in a bloom.
+ */
+
+:root {
+  --ground: #0E120F;       /* green-cast near-black; never warm paper, never blue-black */
+  --raise: #131813;        /* plate ground (decorative separation only) */
+  --hair: #26302A;         /* decorative hairlines: the soil line, plate ticks */
+  --ink: #D9E1D3;          /* primary text + plant strokes (measured ≥13:1) */
+  --ink-2: #9DAB97;        /* secondary (measured ≥7:1) */
+  --ink-3: #83917D;        /* tertiary floor for text (measured ≥5:1) */
+  --line: #5F7462;         /* non-text meaning-bearing strokes (measured ≥3:1) */
+  --focus: #BFE3CC;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: system-ui, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+/* the whisper of hour in the ground (disclosed in About): a tint, never a picture */
+body.h-dawn  { --ground: #10130E; }
+body.h-day   { --ground: #101410; }
+body.h-dusk  { --ground: #100F11; }
+body.h-night { --ground: #0D110E; }
+
+::selection { background: #33413A; }
+
+a { color: var(--ink); text-underline-offset: 2px; }
+a:hover { color: var(--focus); }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+/* Safari 15.0–15.3 drops the :focus-visible rule wholesale; give it a plain fallback
+   and suppress it where :focus-visible works (compat audit) */
+@supports not selector(:focus-visible) {
+  :focus { outline: 2px solid var(--focus); outline-offset: 2px; }
+}
+footer label:focus-within { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+.skip-link {
+  position: absolute; left: -9999px; top: 0; background: var(--ink); color: var(--ground);
+  padding: 6px 12px; z-index: 10;
+}
+.skip-link:focus { left: 8px; top: 8px; }
+
+/* ---------- mast ---------- */
+.mast {
+  display: flex; align-items: baseline; gap: 20px; flex-wrap: wrap;
+  padding: 20px 24px 12px;
+  border-bottom: 1px solid var(--hair);
+}
+.wordmark {
+  font-weight: 300; letter-spacing: 0.35em; margin-right: -0.35em;
+  font-size: 14px; text-decoration: none; color: var(--ink);
+}
+.tagline { color: var(--ink-3); font-size: 13px; }
+.almanac { margin-left: auto; color: var(--ink-2); font-size: 13px; font-variant-numeric: tabular-nums; }
+.mast nav { display: flex; gap: 16px; flex-wrap: wrap; }
+.mast nav a { font-size: 13px; color: var(--ink-2); }
+.mast nav a[aria-current="page"] { color: var(--ink); }
+
+main { max-width: 1120px; margin: 0 auto; padding: 24px; }
+
+h2 {
+  font-size: 13px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink-2); margin: 40px 0 12px;
+}
+section:first-of-type h2 { margin-top: 8px; }
+
+/* ---------- the dish (sow) ---------- */
+#sow-lead { color: var(--ink); font-size: 16px; max-width: 46ch; margin-bottom: 8px; }
+#sow-how { color: var(--ink-2); font-size: 14px; max-width: 62ch; }
+.dish { display: flex; gap: 16px; flex-wrap: wrap; margin: 20px 0 8px; }
+button.seed {
+  background: none; border: 1px solid var(--hair); color: var(--ink);
+  min-width: 148px; padding: 14px 12px 12px; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  font: inherit; font-size: 13px;
+  touch-action: pan-y; /* a scroll flick is a scroll, not a sow (playtest) */
+  user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; /* iOS long-press loupe (compat audit) */
+}
+button.foresee, button.door {
+  user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+}
+button.seed:hover { border-color: var(--line); }
+button.seed .dot-wrap { height: 52px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; }
+/* the riser climbs on the same easeOutQuad curve the hold maps to stature, so the mark
+   the visitor draws previews the plate it will carry (visual-arts panel) */
+button.seed .riser { width: 1px; height: 2px; background: var(--ink); display: block; transition-timing-function: cubic-bezier(.25,.75,.5,1) !important; }
+button.seed .dot { width: 6px; height: 6px; border: 1px solid var(--ink); border-radius: 50%; display: block; }
+button.seed .name { letter-spacing: 0.08em; text-transform: uppercase; }
+button.seed .cost { color: var(--ink-3); font-size: 12px; font-variant-numeric: tabular-nums; }
+button.seed.holding { border-color: var(--ink-2); }
+button.seed[data-armed] .name::after { content: " — let go"; text-transform: none; letter-spacing: 0; color: var(--ink-2); }
+
+#sow-stage { margin: 16px 0; border: 1px solid var(--hair); padding: 16px; max-width: 640px; }
+.door-lead { margin-bottom: 4px; }
+.door-note { color: var(--ink-3); font-size: 13px; margin-bottom: 10px; max-width: 52ch; }
+.place-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+button.place {
+  background: none; border: 1px solid var(--hair); color: var(--ink); font: inherit;
+  padding: 10px 14px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; align-items: flex-start;
+}
+button.place:hover { border-color: var(--line); }
+.place-when { color: var(--ink-3); font-size: 12px; font-variant-numeric: tabular-nums; }
+.linklike {
+  background: none; border: none; color: var(--ink-2); font: inherit; font-size: 13px;
+  text-decoration: underline; text-underline-offset: 2px; cursor: pointer; padding: 0;
+}
+.post-sow p { margin-bottom: 8px; max-width: 62ch; }
+.packet-line { color: var(--ink-2); font-size: 13px; }
+.persist-line { color: var(--ink-3); font-size: 13px; margin-top: 6px; }
+/* the calendar door is the honest reminder — it reads a touch more present than its
+   neighbours, without ever firing on its own (deep-thinkers: demote, never auto-fire) */
+.post-sow .door#ps-ics { color: var(--ink); text-decoration-thickness: 2px; }
+.packet-url code {
+  font-family: inherit; font-size: 12px; color: var(--ink-2); word-break: break-all;
+  user-select: all; -webkit-user-select: all;
+}
+
+/* ---------- the bed ---------- */
+#plants { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 32px 28px; }
+li.plot article { display: flex; flex-direction: column; }
+svg.plant {
+  display: block; width: 100%; height: auto; max-width: 260px;
+  border-bottom: 1px solid var(--hair);       /* the soil line: image above, words below */
+  stroke: var(--ink); stroke-width: 1.2; fill: none;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+svg.plant.study { stroke: var(--line); stroke-dasharray: none; }
+li.plot .under { padding-top: 10px; }
+li.plot h3 { font-size: 13px; font-weight: 400; }
+.species { letter-spacing: 0.08em; text-transform: uppercase; }
+.given-mark { color: var(--ink-3); }
+.phase { color: var(--ink-3); font-size: 13px; }
+.stake { font-size: 14px; color: var(--ink); font-variant-numeric: tabular-nums; margin-top: 4px; max-width: 34ch; }
+.ledger { font-size: 13px; color: var(--ink-2); font-variant-numeric: tabular-nums; margin-top: 4px; }
+details.notes { margin-top: 8px; font-size: 13px; color: var(--ink-2); }
+details.notes summary { cursor: pointer; color: var(--ink-3); }
+details.notes p { font-variant-numeric: tabular-nums; }
+.doors { margin-top: 10px; display: flex; gap: 10px; flex-wrap: wrap; align-items: baseline; }
+button.door {
+  background: none; border: none; color: var(--ink-2); font: inherit; font-size: 13px;
+  text-decoration: underline; text-underline-offset: 2px; cursor: pointer; padding: 0;
+}
+button.door:hover { color: var(--focus); }
+.pre-door { color: var(--ink-3); font-size: 12px; }
+#empty { color: var(--ink-2); max-width: 62ch; }
+
+/* The bloom opening in the visitor's presence is the piece's one motion, drawn frame by
+   frame in JS (the openF unfold). No CSS opacity fade over it (a second opening), and no
+   idle breath while it sits open (performed aliveness) — both struck by the game-masters
+   subtractive pass. An open bloom simply stands still. */
+@media (prefers-reduced-motion: reduce) {
+  button.seed .riser { transition: none !important; }
+}
+
+/* ---------- pressed plates ---------- */
+#pressed, #rehearsal-shelf { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 28px; }
+.plate figure { position: relative; background: var(--raise); padding: 18px 18px 14px; }
+/* corner ticks, not a box */
+.plate figure::before, .plate figure::after {
+  content: ""; position: absolute; width: 12px; height: 12px;
+}
+.plate figure::before { top: 0; left: 0; border-top: 1px solid var(--hair); border-left: 1px solid var(--hair); }
+.plate figure::after { bottom: 0; right: 0; border-bottom: 1px solid var(--hair); border-right: 1px solid var(--hair); }
+.plate svg.plant { border-bottom: 1px solid var(--hair); margin: 0 auto; }
+.plate figcaption { padding-top: 8px; font-size: 13px; }
+.plate .label { color: var(--ink-2); }
+.plate .fact { color: var(--ink); margin-top: 4px; font-variant-numeric: tabular-nums; max-width: 40ch; }
+.plate .fact.words { color: var(--ink-2); }
+#rehearsal-h { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin: 24px 0 10px; }
+#rehearsal-shelf .plate figure { background: none; border: 1px dashed var(--hair); }
+#rehearsal-shelf svg.plant { opacity: 0.8; }
+
+/* ---------- the gate ---------- */
+#gate p.lead { color: var(--ink-2); font-size: 14px; max-width: 62ch; }
+#given { list-style: none; margin-top: 12px; }
+#given li { font-size: 13px; color: var(--ink-2); font-variant-numeric: tabular-nums; margin-top: 4px; }
+
+/* ---------- gift view ---------- */
+#gift-view { border: 1px solid var(--hair); padding: 20px; margin-bottom: 28px; }
+.gift-plate { display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-start; }
+.gift-plate svg.plant { max-width: 200px; flex: 0 0 auto; }
+.gift-plate .under { flex: 1 1 260px; }
+.gift-plate p { margin-bottom: 8px; max-width: 52ch; }
+
+/* ---------- footer ---------- */
+footer {
+  border-top: 1px solid var(--hair); margin-top: 56px;
+  padding: 16px 24px calc(32px + env(safe-area-inset-bottom, 0px));
+  display: flex; gap: 18px; flex-wrap: wrap; align-items: baseline;
+  font-size: 13px; color: var(--ink-2);
+}
+footer .toggle, footer button { background: none; border: none; color: var(--ink-2); font: inherit; font-size: 13px; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; padding: 0; }
+footer label { text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+footer input[type="file"] { position: absolute; width: 1px; height: 1px; opacity: 0; }
+#private-note { color: var(--ink-2); }
+footer .fine-print { color: var(--ink-3); font-size: 13px; flex-basis: 100%; }
+
+/* ---------- prose pages ---------- */
+body.prose main { max-width: 720px; }
+body.prose h1 { font-size: 25px; font-weight: 300; letter-spacing: 0.02em; margin: 24px 0 6px; }
+body.prose .subtitle { color: var(--ink-2); margin-bottom: 28px; }
+body.prose h2 { margin: 36px 0 10px; }
+body.prose p { margin-bottom: 14px; max-width: 62ch; }
+body.prose ul, body.prose ol { margin: 0 0 14px 22px; max-width: 60ch; }
+body.prose li { margin-bottom: 6px; }
+body.prose .eyebrow { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin-top: 32px; }
+body.prose table { border-collapse: collapse; margin-bottom: 16px; font-size: 14px; font-variant-numeric: tabular-nums; }
+body.prose th, body.prose td { border: 1px solid var(--hair); padding: 6px 12px; text-align: left; }
+body.prose th { color: var(--ink-2); font-weight: 400; }
+body.prose blockquote { border-left: 1px solid var(--line); padding-left: 14px; color: var(--ink-2); margin-bottom: 14px; max-width: 58ch; }
+body.prose .ref { font-size: 13px; color: var(--ink-2); }
+body.prose hr { border: none; border-top: 1px solid var(--hair); margin: 28px 0; }
+
+/* prose pages may keep the visitor's daylight; the garden itself is dark-only */
+@media (prefers-color-scheme: light) {
+  body.prose {
+    --ground: #F0F3EE; --raise: #E7EBE4; --hair: #D3DAD1;
+    --ink: #22291F; --ink-2: #4C584A; --ink-3: #5D6A5B; --line: #77857A; --focus: #1E4D33;
+  }
+  /* the variety plates keep the dark plate ground everywhere — the genome hues were
+     measured against it, and several bands vanish on paper (a11y audit) */
+  body.prose #variety li { background: #0E120F; border-color: #26302A; }
+  body.prose #variety svg { stroke: #D9E1D3; }
+  body.prose #variety figcaption { color: #83917D; }
+}
+
+/* ---------- forced colors (Windows High Contrast) ---------- */
+@media (forced-colors: active) {
+  svg.plant { stroke: CanvasText; }
+  /* inline hue strokes/fills would override the inherited stroke and can vanish on a
+     light HC theme — the climax must never be the invisible part (a11y audit) */
+  svg.plant [stroke] { stroke: CanvasText !important; }
+  svg.plant [fill]:not([fill="none"]) { fill: CanvasText !important; fill-opacity: 0.16; }
+  button.seed .riser { background: ButtonText; forced-color-adjust: none; }
+  button.seed, button.place, #sow-stage, #gift-view, .plate figure { border-color: ButtonText; }
+}
+
+/* ---------- the lab bench (evaluation page variety evidence) ---------- */
+#variety { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; margin: 0 0 16px; }
+#variety li { border: 1px solid var(--hair); padding: 8px; margin: 0; }
+#variety svg { display: block; width: 100%; height: auto; stroke: var(--ink); stroke-width: 1.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+#variety figcaption { font-size: 13px; color: var(--ink-3); padding-top: 4px; }
+.census-tables { display: flex; gap: 32px; flex-wrap: wrap; }
+
+/* ---------- noscript ---------- */
+.noscript { border: 1px solid var(--hair); padding: 20px; max-width: 62ch; margin: 24px 0; }
+.noscript p { margin-bottom: 10px; }
+
+/* ---------- small screens: one stanza per plant ---------- */
+@media (max-width: 719px) {
+  main { padding: 16px; }
+  #plants { grid-template-columns: 1fr; gap: 40px; }
+  svg.plant { max-width: 220px; }
+  .mast { padding: 16px 16px 10px; }
+  footer { padding: 16px; }
+}

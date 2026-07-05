@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<!-- Self-contained except GoatCounter (cookieless page-view counting, disclosed in the colophon;
+     the counter never sees the URL fragment, so seed links stay private). Strict allowlist. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://gc.zgo.at; style-src 'self'; img-src 'self' data: https://pothos.goatcounter.com; connect-src https://pothos.goatcounter.com; manifest-src 'self'; base-uri 'none'; form-action 'none'" />
+<title>POTHOS</title>
+<meta name="description" content="POTHOS is a garden of appointments. Sow a seed and it tells you, precisely, when it will open — tomorrow, in a week, in a season. Nothing you do can hurry it." />
+<meta name="color-scheme" content="dark" />
+<meta name="theme-color" content="#0E120F" />
+<link rel="apple-touch-icon" href="assets/icon-180.png" />
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="POTHOS" />
+<meta property="og:title" content="POTHOS" />
+<meta property="og:description" content="A garden of appointments. Sow a seed and it tells you, precisely, when it will open. Nothing you do can hurry it. Fourth of the Experimental Concepts." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://hulkiokantabak.github.io/pothos/" />
+<meta property="og:image" content="https://hulkiokantabak.github.io/pothos/assets/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<link rel="canonical" href="https://hulkiokantabak.github.io/pothos/" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230E120F'/%3E%3Cline x1='16' y1='24' x2='16' y2='14' stroke='%23D9E1D3' stroke-width='1.4'/%3E%3Ccircle cx='16' cy='24' r='2.4' fill='none' stroke='%23D9E1D3' stroke-width='1.2'/%3E%3Cline x1='8' y1='24' x2='24' y2='24' stroke='%235F7462' stroke-width='1'/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="css/pothos.css?v=16" />
+</head>
+<body class="h-night">
+<a class="skip-link" href="#garden-h">Skip to the garden</a>
+
+<header class="mast">
+  <a class="wordmark" href="./">POTHOS</a>
+  <span class="tagline">a garden of appointments</span>
+  <nav aria-label="Pages">
+    <a href="about.html">About</a>
+    <a href="colophon.html">Colophon</a>
+    <a href="concepts.html">Concepts</a>
+    <a href="evaluation.html">Evaluation</a>
+  </nav>
+  <p class="almanac" id="almanac"></p>
+</header>
+
+<main>
+  <h1 class="sr-only">POTHOS — a garden of appointments</h1>
+  <p class="sr-only" id="status" role="status" aria-live="polite"></p>
+  <p class="sr-only" id="sow-brief">Hold and let go — or press once to take it and once to let go.</p>
+
+  <section id="gift-view" hidden aria-label="A seed line arrived"></section>
+
+  <section aria-labelledby="sow-h">
+    <h2 id="sow-h">Sow a seed</h2>
+    <p id="sow-lead">Plant a seed. It names the exact day it will open — a day away, a week, a
+    season — and nothing you do can hurry it.</p>
+    <p id="sow-how">Hold a seed and let go — or press once to take it and once to let go. A longer
+    hold sows a taller plant. There is no skill in it. What grows cannot be helped, hurried, or
+    harmed. It will tell you exactly when it opens; the bloom is brief, and if you are away while
+    it is open, the record will say so.</p>
+    <div class="dish" role="group" aria-label="Four seeds, by the length of their wait">
+      <button type="button" class="seed" data-species="rehearsal" aria-describedby="sow-brief">
+        <span class="dot-wrap"><span class="riser"></span><span class="dot"></span></span>
+        <span class="name">Rehearsal</span>
+        <span class="cost">the whole arc, in minutes, drawn in line only</span>
+      </button>
+      <button type="button" class="seed" data-species="day" aria-describedby="sow-brief">
+        <span class="dot-wrap"><span class="riser"></span><span class="dot"></span></span>
+        <span class="name">Day</span>
+        <span class="cost">about a day · open six hours</span>
+      </button>
+      <button type="button" class="seed" data-species="week" aria-describedby="sow-brief">
+        <span class="dot-wrap"><span class="riser"></span><span class="dot"></span></span>
+        <span class="name">Week</span>
+        <span class="cost">about seven days · open a day</span>
+      </button>
+      <button type="button" class="seed" data-species="season" aria-describedby="sow-brief">
+        <span class="dot-wrap"><span class="riser"></span><span class="dot"></span></span>
+        <span class="name">Season</span>
+        <span class="cost">about ninety days · open three days</span>
+      </button>
+    </div>
+    <div id="sow-stage" hidden></div>
+  </section>
+
+  <section aria-labelledby="garden-h">
+    <h2 id="garden-h">The garden</h2>
+    <p id="empty">Nothing is sown here. A garden lives only in the browser that sowed it — and some
+    browsers forget it after a week or two away. If you sowed one here and kept its seed line, or a
+    saved copy of the garden, opening that brings the plant back, still keeping its appointments.</p>
+    <ul id="plants"></ul>
+  </section>
+
+  <section id="pressed-sec" aria-labelledby="pressed-h" hidden>
+    <h2 id="pressed-h">Pressed</h2>
+    <ul id="pressed"></ul>
+    <h3 id="rehearsal-h" hidden>Rehearsals</h3>
+    <ul id="rehearsal-shelf"></ul>
+  </section>
+
+  <section id="gate" aria-labelledby="gate-h">
+    <h2 id="gate-h">Sow one for someone</h2>
+    <p class="lead">A seed can be sown for someone. It goes as a link; no name goes with it, and
+    nothing comes back. Hold a seed here to sow one for sending.</p>
+    <div class="dish" role="group" aria-label="Seeds for giving">
+      <button type="button" class="seed" data-species="day" data-gift="1" aria-describedby="sow-brief">
+        <span class="dot-wrap"><span class="riser"></span><span class="dot"></span></span>
+        <span class="name">Day</span><span class="cost">for someone · about a day</span>
+      </button>
+      <button type="button" class="seed" data-species="week" data-gift="1" aria-describedby="sow-brief">
+        <span class="dot-wrap"><span class="riser"></span><span class="dot"></span></span>
+        <span class="name">Week</span><span class="cost">for someone · about seven days</span>
+      </button>
+      <button type="button" class="seed" data-species="season" data-gift="1" aria-describedby="sow-brief">
+        <span class="dot-wrap"><span class="riser"></span><span class="dot"></span></span>
+        <span class="name">Season</span><span class="cost">for someone · about ninety days</span>
+      </button>
+    </div>
+    <ul id="given"></ul>
+  </section>
+
+  <noscript>
+    <div class="noscript">
+      <p>POTHOS is a garden of appointments and needs JavaScript to keep them. Nothing you do in
+      it is recorded anywhere but your own browser.</p>
+      <p>The idea, in words: you sow a seed with a small gesture, and the garden tells you exactly
+      when it will open — tomorrow, in a week, in a season. Nothing you do can hurry it. It does
+      not need watering and cannot be harmed; it grows whether you watch or not. The bloom is
+      brief. If you are there while it is open, that is witnessed; if not, it opened while you
+      were away, and the record says so plainly. You can look ahead at a drawing of what will
+      come, and you can sow a seed for someone else and send it as a link.
+      The <a href="about.html">About page</a> carries the whole of it.</p>
+    </div>
+  </noscript>
+</main>
+
+<footer>
+  <button type="button" id="sound" class="toggle" aria-pressed="true">Sound: on</button>
+  <button type="button" id="export">Keep a copy of the garden</button>
+  <label for="import">Bring a garden back<input type="file" id="import" accept=".json,application/json" /></label>
+  <span id="private-note" hidden>This browser will not let the garden remember; anything sown
+  lives only this sitting.</span>
+  <span class="fine-print">One anonymous page view is counted; it never sees what you sow —
+  <a href="colophon.html">the whole of it</a>.</span>
+</footer>
+
+<script src="js/engine.js?v=16"></script>
+<script src="js/botany.js?v=16"></script>
+<script src="js/pothos.js?v=16"></script>
+<!-- GoatCounter: cookieless page-view counting only; no personal data; the URL fragment (seed
+     links) is never sent. Disclosed in the colophon. -->
+<script data-goatcounter="https://pothos.goatcounter.com/count" async src="https://gc.zgo.at/count.v5.js" integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ" crossorigin="anonymous"></script>
+</body>
+</html>

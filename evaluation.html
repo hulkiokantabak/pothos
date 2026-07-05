@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://gc.zgo.at; style-src 'self'; img-src 'self' data: https://pothos.goatcounter.com; connect-src https://pothos.goatcounter.com; manifest-src 'self'; base-uri 'none'; form-action 'none'" />
+<title>Evaluation — POTHOS</title>
+<meta name="description" content="How POTHOS was tested: measured numbers, the variety evidence, the code invariants, and what cannot be known before real visitors wait real days." />
+<meta name="color-scheme" content="light dark" />
+<meta name="theme-color" content="#0E120F" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230E120F'/%3E%3Cline x1='16' y1='24' x2='16' y2='14' stroke='%23D9E1D3' stroke-width='1.4'/%3E%3Ccircle cx='16' cy='24' r='2.4' fill='none' stroke='%23D9E1D3' stroke-width='1.2'/%3E%3Cline x1='8' y1='24' x2='24' y2='24' stroke='%235F7462' stroke-width='1'/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="css/pothos.css?v=16" />
+</head>
+<body class="prose">
+<header class="mast">
+  <a class="wordmark" href="./">POTHOS</a>
+  <span class="tagline">a garden of appointments</span>
+  <nav aria-label="Pages">
+    <a href="./">The garden</a>
+    <a href="about.html">About</a>
+    <a href="colophon.html">Colophon</a>
+    <a href="concepts.html">Concepts</a>
+    <a href="evaluation.html" aria-current="page">Evaluation</a>
+  </nav>
+</header>
+<main>
+  <h1>Evaluation</h1>
+  <p class="subtitle">how this piece was tested, and what cannot be known</p>
+
+  <p>POTHOS was built autonomously by Claude with panels of simulated specialists designed to
+  disagree — a premise challenge run from the bare word before anything was committed, a
+  ten-seat concept council, a playtest, and an ordered audit swarm with a bespoke
+  desire-fidelity seat that reads the source. Every session's raw output and every decision is
+  preserved in the private workshop repository. Two honesty rules govern everything below:
+  <strong>simulated verdicts are labeled simulated</strong> (the panels share one base model;
+  their agreement is convergence, not proof), and <strong>numbers are measured, not
+  asserted</strong>.</p>
+
+  <h2>Fair warning: this page shows blooms</h2>
+  <p>The garden withholds color until a bloom is really open. This page is the lab bench — the
+  variety evidence below renders full, colored blooms from fixed seeds. Nothing here is secret;
+  spoiling is opt-in. If you would rather wait for your own, stop here.</p>
+
+  <h2>The variety evidence</h2>
+  <p>Success criterion 6 requires the bloom be worth wanting: a measured generative range with
+  no degenerate outputs. The plates below are drawn live by the same pure function the garden
+  uses, from 24 fixed seeds across three species (covering both bloom-family weightings the
+  garden uses). The full sweep — 1,000 seeds per species, all four species, re-run after the
+  audit fix pass and recorded in the workshop repository — checks: no empty or off-frame
+  plants, no NaN geometry, all five bloom families and five color bands represented, and the
+  sentence generator's petal count always matching the drawing.</p>
+  <ul id="variety"></ul>
+
+  <p>You do not have to take that on faith. Run the census yourself, here, in your own browser —
+  the same pure function the garden draws with, swept over every seed:</p>
+  <p><button type="button" id="census-run" class="door">Run the census here</button></p>
+  <div id="census-out" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+
+  <h2>Measured numbers</h2>
+  <table>
+    <tr><th>Claim</th><th>Measured</th></tr>
+    <tr><td>Primary text contrast (ink on ground)</td><td>14.08 : 1 (AA needs 4.5)</td></tr>
+    <tr><td>Secondary text (ink-2 on ground)</td><td>7.83 : 1</td></tr>
+    <tr><td>Tertiary text floor (ink-3 on ground)</td><td>5.68 : 1</td></tr>
+    <tr><td>Meaning-bearing strokes (line on ground)</td><td>3.74 : 1 (non-text needs 3)</td></tr>
+    <tr><td>Genome colour floor (darkest reachable genome, worst ground it appears on)</td><td>4.24 : 1 (deep-rose on the lightest hour-tinted garden ground; 4.31 on the base ground — non-text needs 3; re-measured live by the census above)</td></tr>
+    <tr><td>All tokens on every ground (four hour tints and the plate ground)</td><td>lowest 3.56 : 1 (non-text), 5.40 : 1 (text)</td></tr>
+    <tr><td>Deterministic render (same seed, same clock)</td><td>identical markup, 800/800 checks</td></tr>
+    <tr><td>Degenerate outputs in sweep</td><td>0 (sweep re-run at audit; see below)</td></tr>
+  </table>
+
+  <h2>The code invariants (the desire-fidelity audit)</h2>
+  <p>The piece's ethics are testable in source. The audit checks, with file-and-line evidence:
+  growth is a pure function that never reads visitor facts; no randomness outside the sowing
+  gesture; the only writes after sowing are witnessed, seen-early, and taken-in; pressing
+  images depend on the seed and what-you-saw mode only; nothing counts or scores the ledger;
+  no seconds are ever rendered; the page title and icon never change; no notification,
+  vibration, badge, or install-prompt code exists; the counter never receives the URL
+  fragment; the post-sow screen ends in a dead-end; and absence — simulated at 400 days — is
+  met by nothing but the truth. The full checklist and results live in the workshop
+  repository.</p>
+
+  <h2>Timing, for the record</h2>
+  <p>No task in this piece is time-limited in the sense of WCAG 2.2.1: witnessing is
+  presence-only (no interaction, no reading-speed dependency), and a missed window produces a
+  complete, honored record, not a failure state. The windows themselves are essential to the
+  meaning — they are the piece's one tooth — and are disclosed, generously sized (six hours to
+  three days), and placeable away from sleep at sowing. The rehearsal's bloom holds at least
+  ninety seconds.</p>
+
+  <h2>What we cannot know</h2>
+  <p>The mocked clock verifies the mechanism at every hour of a ninety-day wait in seconds.
+  It cannot verify the wanting. Whether an appointment with an unknown flower can make a
+  person feel anything across real days — whether the return is longing or just a bookmark —
+  is untestable before real visitors wait real time, and no simulated playtester can wait.
+  The piece's central claim is therefore a bet, stated plainly here. The author has now
+  ratified it (5 July 2026) — a decision to stand by shipping it, not a proof it works; real
+  visitors remain the only judge of that. Panels of one base model
+  agreeing with each other — however adversarially prompted — are evidence of coherence, not
+  of worth. Two more things cannot be known, and should be said: the garden records nothing
+  about what you do in it (the only count anywhere is the anonymous page view named in the
+  <a href="colophon.html">colophon</a>, and it never sees what you sow), so whether the waiting
+  produces wanting can never arrive as data — only as the author's ruling and whatever
+  visitors choose to tell; and the one live human signal this run received (a doubt about the
+  name itself) found in a glance what the entire simulated apparatus had missed, which is the
+  clearest measure of that apparatus's ceiling.</p>
+
+  <h2>Playtest and audit record</h2>
+  <p id="audit-note">The simulated playtest (eight personas, one driving the real page with a
+  mocked clock) and the ordered audit swarm (editorial, compatibility, security, vulnerability,
+  accessibility, performance, self-audit, desire-fidelity, ablation) ran against the build;
+  findings and fixes are recorded in the workshop repository, with raw outputs preserved.
+  Verdict at ship: no unresolved critical or high findings. The author ratified the piece on
+  5 July 2026; it now ships as the finished fourth concept.</p>
+
+  <p class="ref"><a href="./">&larr; Back to the garden</a></p>
+</main>
+<script src="js/botany.js?v=16"></script>
+<script src="js/evaluation.js?v=16"></script>
+<script data-goatcounter="https://pothos.goatcounter.com/count" async src="https://gc.zgo.at/count.v5.js" integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ" crossorigin="anonymous"></script>
+</body>
+</html>
