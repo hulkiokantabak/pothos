@@ -44,7 +44,24 @@
       if (counted || (document.visibilityState && document.visibilityState !== 'visible')) return;
       counted = true;
       document.removeEventListener('visibilitychange', countOnce);
-      try { gc.count(); } catch (_) { /* Analytics must never interrupt the artwork. */ }
+      try {
+        if (typeof navigator.sendBeacon === 'function') {
+          gc.count();
+        } else if (!gc.filter()) {
+          // The pinned SDK assumes sendBeacon exists; retain its image fallback on older browsers.
+          var url = gc.url();
+          if (!url) return;
+          var image = document.createElement('img');
+          image.alt = '';
+          image.hidden = true;
+          image.width = image.height = 1;
+          image.onload = image.onerror = function () {
+            if (image.parentNode) image.parentNode.removeChild(image);
+          };
+          image.src = url;
+          document.body.appendChild(image);
+        }
+      } catch (_) { /* Analytics must never interrupt the artwork. */ }
     }
     document.addEventListener('visibilitychange', countOnce);
     countOnce();
